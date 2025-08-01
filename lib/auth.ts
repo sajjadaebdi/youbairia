@@ -54,12 +54,12 @@ export const authOptions: NextAuthOptions = {
           })
 
           if (!user) {
-            this.recordFailedAttempt(email)
+            recordFailedAttempt(email)
             throw new Error("Invalid email or password")
           }
 
           if (!user.password) {
-            this.recordFailedAttempt(email)
+            recordFailedAttempt(email)
             throw new Error("Invalid email or password")
           }
 
@@ -67,7 +67,7 @@ export const authOptions: NextAuthOptions = {
           const isValid = await bcrypt.compare(credentials.password, user.password)
 
           if (!isValid) {
-            this.recordFailedAttempt(email)
+            recordFailedAttempt(email)
             throw new Error("Invalid email or password")
           }
 

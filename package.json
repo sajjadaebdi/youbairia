@@ -61,7 +61,7 @@
     "prisma": "^6.9.0",
     "qrcode.react": "^4.2.0",
     "react": "^19",
-    "react-day-picker": "8.10.1",
+    "react-day-picker": "^9.0.0",
     "react-dom": "^19",
     "react-hook-form": "^7.50.1",
     "react-resizable-panels": "^2.1.7",
