@@ -5,8 +5,9 @@ import { authOptions } from '@/lib/auth'
 
 export async function POST(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params
   try {
     // Check admin authentication
     const session = await getServerSession(authOptions)
@@ -19,7 +20,7 @@ export async function POST(
     }
 
     const seller = await prisma.seller.update({
-      where: { id: params.id },
+      where: { id: id },
       data: {
         status: 'REJECTED',
         updatedAt: new Date()
