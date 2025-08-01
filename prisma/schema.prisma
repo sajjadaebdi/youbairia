@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String?
+  email     String   @unique
+  password  String
+  role      String   @default("USER") // USER or ADMIN
+  createdAt DateTime @default(now())
+}
+
+model Seller {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  shopName    String
+  shopUrl     String   @unique // Unique web address for the shop
+  description String
+  category    String
+  contactEmail String
+  website     String?
+  socialLinks Json?
+  status      String   @default("PENDING")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  products    Product[]
+
+  @@map("sellers")
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  price       Float
+  category    String
+  image       String
+  status      String   @default("PENDING") // PENDING, APPROVED, REJECTED
+  sellerId    String
+  seller      Seller   @relation(fields: [sellerId], references: [id])
+  approvedAt  DateTime?
+  approvedBy  String?
+  rejectedAt  DateTime?
+  rejectedBy  String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("products")
+}
