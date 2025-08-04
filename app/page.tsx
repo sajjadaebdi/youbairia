@@ -159,7 +159,7 @@ export default function Home() {
             animate="visible"
             variants={fadeInUp}
           >
-            <h2 className="text-2xl font-bold tracking-tight text-center">Why Choose DigitalMarket?</h2>
+            <h2 className="text-2xl font-bold tracking-tight text-center">Why Choose Youbairia?</h2>
             <p className="text-muted-foreground text-center mt-2">
               We make buying and selling digital products simple and secure
             </p>
@@ -258,7 +258,7 @@ export default function Home() {
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-center">
             <Link href="/" className="text-lg font-semibold hover:text-primary transition-colors">
-              DigitalMarket
+              Youbairia
             </Link>
             <nav className="flex gap-4 md:gap-6 text-sm">
               <Link href="/terms" className="text-muted-foreground hover:text-primary transition-colors">
@@ -273,7 +273,7 @@ export default function Home() {
             </nav>
           </div>
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} DigitalMarket. All rights reserved.
+            © {new Date().getFullYear()} Youbairia. All rights reserved.
           </p>
         </div>
       </motion.footer>
