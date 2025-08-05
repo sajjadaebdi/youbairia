@@ -88,7 +88,7 @@ export default function AdminPage() {
     try {
       const [sellersRes, productsRes, statsRes] = await Promise.all([
         fetch("/api/admin/sellers"),
-        fetch("/api/admin/products"),
+        
         fetch("/api/admin/stats")
       ])
 
@@ -134,7 +134,7 @@ export default function AdminPage() {
 
   const handleProductAction = async (productId: string, action: "approve" | "reject") => {
     try {
-      const response = await fetch(`/api/admin/products/${productId}/${action}`, {
+      
         method: "POST"
       })
 
