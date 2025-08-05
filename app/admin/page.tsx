@@ -134,9 +134,9 @@ export default function AdminPage() {
 
   const handleProductAction = async (productId: string, action: "approve" | "reject") => {
     try {
-      
+      const response = await fetch(`/api/admin/products/${productId}/${action}`, {
         method: "POST"
-      })
+      });
 
       if (response.ok) {
         toast.success(`Product ${action}d successfully`)
@@ -471,4 +471,4 @@ export default function AdminPage() {
       </div>
     </div>
   )
-} 
+}
