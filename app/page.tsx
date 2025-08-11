@@ -273,7 +273,7 @@ export default function Home() {
             </nav>
           </div>
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Zoubairia. All rights reserved.
+            © {new Date().getFullYear()} Youbairia. All rights reserved.
           </p>
         </div>
       </motion.footer>
