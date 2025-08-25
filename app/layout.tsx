@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { Navbar } from '@/components/navbar'
+import { Footer } from '@/components/footer'
 import { Toaster } from 'sonner'
 import { SessionProvider } from '@/components/session-provider'
 import { CartNotification } from './components/cart-notification'
@@ -29,6 +30,7 @@ export default function RootLayout({
                 {children}
               </div>
             </main>
+            <Footer />
           </div>
           <Toaster richColors position="top-center" />
           <CartNotification />

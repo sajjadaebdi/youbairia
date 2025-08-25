@@ -15,9 +15,17 @@ export default function Home() {
   const items = useCartStore((state) => state.items)
   const totalCount = items.reduce((total, item) => total + item.quantity, 0)
   const [isVisible, setIsVisible] = useState(false)
+  const [message, setMessage] = useState("")
 
   useEffect(() => {
     setIsVisible(true)
+  }, [])
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/api/hello")
+      .then(res => res.json())
+      .then(data => setMessage(data.message))
+      .catch(() => setMessage("Could not fetch message"))
   }, [])
 
   const fadeInUp = {
@@ -77,20 +85,6 @@ export default function Home() {
         className="py-12 md:py-16"
       >
         <div className="flex flex-col gap-8">
-          <motion.div 
-            initial="hidden"
-            animate="visible"
-            variants={fadeInUp}
-            className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
-          >
-            <div>
-              <h2 className="text-2xl font-bold tracking-tight flex items-center gap-2">
-                Featured Products <Sparkles className="h-5 w-5 text-yellow-500" />
-              </h2>
-              <p className="text-muted-foreground">Discover our most popular digital products</p>
-            </div>
-            <CategoryFilter />
-          </motion.div>
           <motion.div 
             initial="hidden"
             animate="visible"
@@ -277,6 +271,10 @@ export default function Home() {
           </p>
         </div>
       </motion.footer>
+      {/* Add your Laravel message here */}
+      <div className="text-center mt-8 text-base text-primary font-semibold">
+        {message}
+      </div>
     </div>
   )
 }
