@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { ArrowRight, CheckCircle2, Clock, FileText, Shield, Sparkles, TrendingUp, Zap, Users, Globe, Rocket } from "lucide-react"
 import Link from "next/link"
-import { SellerForm } from "@/app/components/seller-form"
+import SellerForm from "@/app/components/seller-form"
 
 export default function CreateShopPage() {
   return (
