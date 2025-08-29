@@ -17,11 +17,24 @@ export function UserMenu() {
   const { data: session } = useSession()
   const router = useRouter()
 
-  if (!session?.user) {
+  // Temporarily create a mock session for testing
+  const mockSession = {
+    user: {
+      id: "temp-user-id",
+      name: "Test User",
+      email: "test@example.com",
+      image: null
+    }
+  }
+
+  // Use mock session instead of real session
+  const currentSession = mockSession
+
+  if (!currentSession?.user) {
     return null
   }
 
-  const initials = session.user.name
+  const initials = currentSession.user.name
     ?.split(" ")
     .map((n) => n[0])
     .join("")
@@ -31,15 +44,15 @@ export function UserMenu() {
     <DropdownMenu>
       <DropdownMenuTrigger className="focus:outline-none">
         <Avatar className="h-8 w-8 border-2 border-primary/10 hover:border-primary/20 transition-colors">
-          <AvatarImage src={session.user.image || ""} alt={session.user.name || ""} />
+          <AvatarImage src={currentSession.user.image || ""} alt={currentSession.user.name || ""} />
           <AvatarFallback className="bg-primary/5">{initials}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{session.user.name}</p>
-            <p className="text-xs leading-none text-muted-foreground">{session.user.email}</p>
+            <p className="text-sm font-medium leading-none">{currentSession.user.name}</p>
+            <p className="text-xs leading-none text-muted-foreground">{currentSession.user.email}</p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
@@ -57,12 +70,13 @@ export function UserMenu() {
           <span>Settings</span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
+        {/* Temporarily disabled sign out */}
         <DropdownMenuItem
-          className="text-red-600 focus:text-red-600"
-          onClick={() => signOut({ callbackUrl: "/" })}
+          className="text-muted-foreground"
+          disabled
         >
           <LogOut className="mr-2 h-4 w-4" />
-          <span>Sign Out</span>
+          <span>Sign Out (Disabled)</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

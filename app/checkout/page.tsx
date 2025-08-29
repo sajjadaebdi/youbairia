@@ -14,11 +14,12 @@ export default function CheckoutPage() {
   const { items, clearCart } = useCartStore()
   const addOrder = useOrderStore((state) => state.addOrder)
 
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/signin?callbackUrl=/checkout")
-    }
-  }, [status, router])
+  // Temporarily disabled authentication check
+  // useEffect(() => {
+  //   if (status === "unauthenticated") {
+  //     router.push("/signin?callbackUrl=/checkout")
+  //   }
+  // }, [status, router])
 
   const subtotal = items.reduce((total, item) => total + item.price * item.quantity, 0)
   const tax = subtotal * 0.1
@@ -33,13 +34,14 @@ export default function CheckoutPage() {
     router.push("/orders")
   }
 
-  if (status === "loading") {
-    return (
-      <div className="py-12 text-center">
-        <p className="text-muted-foreground">Loading...</p>
-      </div>
-    )
-  }
+  // Temporarily disabled loading check
+  // if (status === "loading") {
+  //   return (
+  //     <div className="py-12 text-center">
+  //       <p className="text-muted-foreground">Loading...</p>
+  //     </div>
+  //   )
+  // }
 
   if (items.length === 0) {
     return (

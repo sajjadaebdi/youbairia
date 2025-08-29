@@ -15,6 +15,19 @@ export function Navbar() {
   const totalCount = items.reduce((total, item) => total + item.quantity, 0)
   const router = useRouter()
 
+  // Temporarily create a mock session for testing
+  const mockSession = {
+    user: {
+      id: "temp-user-id",
+      name: "Test User",
+      email: "test@example.com",
+      image: null
+    }
+  }
+
+  // Use mock session instead of real session
+  const currentSession = mockSession
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4">
@@ -64,18 +77,8 @@ export function Navbar() {
                 <span className="sr-only">Cart</span>
               </Link>
             </Button>
-            {session ? (
-              <UserMenu />
-            ) : (
-              <div className="flex items-center gap-2">
-                <Button variant="ghost" size="sm" asChild>
-                  <Link href="/signin">Sign In</Link>
-                </Button>
-                <Button size="sm" asChild>
-                  <Link href="/signup">Sign Up</Link>
-                </Button>
-              </div>
-            )}
+            {/* Temporarily always show UserMenu for testing */}
+            <UserMenu />
           </div>
         </div>
       </div>
