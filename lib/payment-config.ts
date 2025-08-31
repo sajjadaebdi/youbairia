@@ -14,7 +14,8 @@ export const PAYMENT_CONFIG = {
     PAYTM_UPI: 'PAYTM_UPI',
     STRIPE: 'STRIPE',
   },
-  
+
+
   
   // Default Payment Method
   DEFAULT_PAYMENT_METHOD: 'PAYTM_UPI',
