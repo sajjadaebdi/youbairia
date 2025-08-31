@@ -4,7 +4,7 @@
 export const PAYMENT_CONFIG = {
   // Paytm UPI Configuration
   PAYTM_UPI: {
-    UPI_ID: '9368598307@paytm', // Your Paytm UPI ID
+    UPI_ID: '9368598307@pthdfc', // Your Paytm UPI ID
     MERCHANT_NAME: 'Digital Marketplace',
     CURRENCY: 'INR',
   },
@@ -14,6 +14,7 @@ export const PAYMENT_CONFIG = {
     PAYTM_UPI: 'PAYTM_UPI',
     STRIPE: 'STRIPE',
   },
+  
   
   // Default Payment Method
   DEFAULT_PAYMENT_METHOD: 'PAYTM_UPI',
