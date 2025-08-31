@@ -4,7 +4,7 @@ import Link from "next/link"
 import { useSession } from "next-auth/react"
 import { Button } from "@/components/ui/button"
 import { UserMenu } from "@/components/user-menu"
-import { ShoppingCart, Home, Package, Tag, Gift, MessageSquare } from "lucide-react"
+import { ShoppingCart, Home, Package, Tag, Gift, MessageSquare, DollarSign, Users } from "lucide-react"
 import { useCartStore } from "@/app/store/cart"
 import { useRouter } from "next/navigation"
 import { SearchBox } from "@/components/search-box"
@@ -46,6 +46,10 @@ export function Navbar() {
             <Link href="/products" className="flex items-center gap-1 text-sm font-medium hover:text-primary transition-colors">
               <Package className="h-3.5 w-3.5" />
               Products
+            </Link>
+            <Link href="/rewards" className="flex items-center gap-1 text-sm font-medium hover:text-primary transition-colors">
+              <DollarSign className="h-3.5 w-3.5" />
+              Rewards
             </Link>
             <Link href="/categories" className="flex items-center gap-1 text-sm font-medium hover:text-primary transition-colors">
               <Tag className="h-3.5 w-3.5" />

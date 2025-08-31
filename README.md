@@ -1,175 +1,280 @@
-# Digital Marketplace
+# Digital Marketplace - Content Reward Program
 
-A modern digital marketplace platform built with Next.js, Prisma, and MySQL where sellers can create shops and list digital products.
+A comprehensive digital marketplace with an integrated Content Reward Program that connects sellers with content creators for marketing campaigns.
 
-## Features
+## 🚀 Features
 
-### For Sellers
-- **Create Seller Profile**: Set up a unique shop with custom URL
-- **Shop Management**: Manage shop information, social links, and contact details
-- **Product Listing**: Upload and manage digital products
-- **Unique Shop URLs**: Each seller gets a unique web address (e.g., `/shop/my-shop-name`)
+### Content Reward Program
+- **Seller Dashboard**: Create and manage reward tasks
+- **Marketer Portal**: Browse opportunities and submit content
+- **Admin Panel**: Process payouts and manage campaigns
+- **Paytm UPI Integration**: Seamless payment processing in INR
+- **Real-time Analytics**: Track campaign performance and earnings
 
-### For Buyers
-- **Browse Shops**: Visit individual seller shops
-- **Product Discovery**: Browse products by category
-- **Shop Profiles**: View seller information and social links
+### Core Marketplace
+- Product listings and management
+- User authentication and role-based access
+- Shopping cart and checkout system
+- Seller shop creation and management
 
-### For Admins
-- **Seller Approval**: Review and approve/reject seller applications
-- **Product Moderation**: Review and approve/reject product listings
-- **Admin Dashboard**: Manage the entire marketplace
+## 💳 Payment Integration
 
-## Tech Stack
+### Paytm UPI Configuration
+The system is configured to receive payments at: **`9368598307@paytm`**
 
-- **Frontend**: Next.js 14, React, TypeScript, Tailwind CSS
-- **Backend**: Next.js API Routes, Prisma ORM
-- **Database**: MySQL
+#### To Change Your Paytm UPI ID:
+
+1. **Via Configuration File:**
+   ```typescript
+   // lib/payment-config.ts
+   export const PAYMENT_CONFIG = {
+     PAYTM_UPI: {
+       UPI_ID: 'your-new-upi-id@paytm', // Change this
+       MERCHANT_NAME: 'Digital Marketplace',
+       CURRENCY: 'INR',
+     },
+   };
+   ```
+
+2. **Via Admin Interface:**
+   - Login as admin: `admin@example.com` / `password123`
+   - Navigate to: http://localhost:3001/admin/payment-settings
+   - Update your Paytm UPI ID in the settings form
+
+3. **Via Database:**
+   ```sql
+   -- Update the UPI ID in the payment configuration
+   UPDATE payouts SET upiId = 'your-new-upi-id@paytm' WHERE paymentMethod = 'PAYTM_UPI';
+   ```
+
+#### Payment Flow:
+1. **Content Approval**: Seller approves marketer's content submission
+2. **Admin Processing**: Admin processes payout via Paytm UPI
+3. **Payment Transfer**: Payment sent to your configured Paytm UPI ID
+4. **Confirmation**: System updates payout status and marketer earnings
+
+## 🛠️ Tech Stack
+
+- **Frontend**: Next.js 15, React, TypeScript
+- **Styling**: Tailwind CSS, ShadCN UI
+- **Database**: MySQL with Prisma ORM
 - **Authentication**: NextAuth.js
-- **UI Components**: shadcn/ui
+- **Payments**: Paytm UPI Integration
+- **Deployment**: Vercel-ready
 
-## Getting Started
+## 📊 Database Schema
+
+### Core Models
+- `User`: Authentication and role management
+- `Seller`: Seller profiles and shop information
+- `Marketer`: Content creator profiles and specialties
+- `RewardTask`: Marketing tasks and requirements
+- `ContentSubmission`: Submitted content and reviews
+- `Payout`: Payment processing and tracking
+
+### Payment Fields
+```sql
+-- Payout table includes Paytm UPI support
+CREATE TABLE payouts (
+  id VARCHAR(191) PRIMARY KEY,
+  submissionId VARCHAR(191) UNIQUE,
+  marketerId VARCHAR(191),
+  userId VARCHAR(191),
+  amount DECIMAL(10,2),
+  stripePayoutId VARCHAR(191), -- Also used for Paytm ID
+  upiId VARCHAR(191), -- Paytm UPI ID
+  paymentMethod VARCHAR(191) DEFAULT 'PAYTM_UPI',
+  status VARCHAR(191) DEFAULT 'PENDING',
+  processedAt DATETIME(3),
+  createdAt DATETIME(3) DEFAULT CURRENT_TIMESTAMP(3)
+);
+```
+
+## 🚀 Quick Start
 
 ### Prerequisites
-
-- Node.js 18+ 
+- Node.js 18+
 - MySQL database
 - XAMPP (for local development)
 
 ### Installation
 
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd digital-marketplace
-```
+1. **Clone and Install:**
+   ```bash
+   git clone <repository>
+   cd digital-marketplace
+   npm install
+   ```
 
-2. Install dependencies:
-```bash
-npm install
-```
+2. **Database Setup:**
+   ```bash
+   # Configure your database connection
+   cp .env.example .env
+   
+   # Run migrations
+   npx prisma migrate dev
+   
+   # Generate Prisma client
+   npx prisma generate
+   ```
 
-3. Set up environment variables:
-```bash
-cp .env.example .env
-```
+3. **Setup Sample Data:**
+   ```bash
+   # Create sample users and tasks
+   npx tsx scripts/setup-content-rewards.ts
+   ```
 
-Update the `.env` file with your database configuration:
+4. **Start Development:**
+   ```bash
+   npm run dev
+   ```
+
+### Default Login Credentials
+- **Seller**: `seller@example.com` / `password123`
+- **Marketer**: `marketer@example.com` / `password123`
+- **Admin**: `admin@example.com` / `password123`
+
+## 📱 Usage Guide
+
+### For Sellers
+1. Login with seller credentials
+2. Navigate to `/seller/rewards`
+3. Create new reward tasks with budgets and requirements
+4. Review and approve content submissions
+5. Monitor campaign performance
+
+### For Marketers
+1. Register as a marketer at `/become-marketer`
+2. Browse opportunities at `/rewards`
+3. Submit content for approved tasks
+4. Track earnings and completed tasks
+
+### For Admins
+1. Login with admin credentials
+2. Process payouts at `/admin/payouts`
+3. Manage payment settings at `/admin/payment-settings`
+4. Monitor platform analytics
+
+## 🔧 Configuration
+
+### Environment Variables
 ```env
-DATABASE_URL="mysql://username:password@localhost:3306/database_name"
+# Database
+DATABASE_URL="mysql://user:password@localhost:3306/database"
+
+# Authentication
 NEXTAUTH_SECRET="your-secret-key"
-NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_URL="http://localhost:3001"
+
+# Paytm UPI (Optional - can be set via admin interface)
+PAYTM_UPI_ID="9368598307@paytm"
 ```
 
-4. Set up the database:
+### Payment Configuration
+```typescript
+// lib/payment-config.ts
+export const PAYMENT_CONFIG = {
+  PAYTM_UPI: {
+    UPI_ID: '9368598307@paytm', // Your Paytm UPI ID
+    MERCHANT_NAME: 'Digital Marketplace',
+    CURRENCY: 'INR',
+  },
+  DEFAULT_PAYMENT_METHOD: 'PAYTM_UPI',
+};
+```
+
+## 🔌 API Endpoints
+
+### Content Rewards
+- `GET /api/rewards` - List reward tasks
+- `POST /api/rewards` - Create new task
+- `PUT /api/rewards/[id]` - Update task
+- `DELETE /api/rewards/[id]` - Delete task
+
+### Submissions
+- `GET /api/submissions` - List content submissions
+- `POST /api/submissions` - Submit content
+- `PUT /api/submissions/[id]` - Review submission
+
+### Payouts
+- `GET /api/payouts` - List payouts (Admin)
+- `POST /api/payouts` - Process payout (Admin)
+
+### Marketers
+- `GET /api/marketers` - List marketers
+- `POST /api/marketers` - Register as marketer
+
+## 🎯 Key Features
+
+### Content Types Supported
+- **UGC**: User-generated content
+- **REEL**: Short-form video content
+- **TWEET**: Social media posts
+- **BLOG_POST**: Long-form written content
+- **VIDEO**: YouTube videos and tutorials
+
+### Payment Processing
+- **Paytm UPI Integration**: Direct bank transfers
+- **Real-time Processing**: Instant payment confirmation
+- **Transaction Tracking**: Complete payment history
+- **Multi-currency Support**: INR (Indian Rupees)
+
+### Analytics & Reporting
+- Campaign performance metrics
+- Creator earnings tracking
+- Payment processing statistics
+- Platform usage analytics
+
+## 🔒 Security Features
+
+- Role-based access control
+- Secure authentication with NextAuth.js
+- Input validation and sanitization
+- SQL injection prevention with Prisma
+- XSS protection with React
+
+## 🚀 Deployment
+
+### Vercel Deployment
+1. Connect your GitHub repository to Vercel
+2. Configure environment variables
+3. Deploy automatically on push
+
+### Environment Setup
 ```bash
-npx prisma migrate dev
+# Production environment variables
+DATABASE_URL="your-production-database-url"
+NEXTAUTH_SECRET="your-production-secret"
+NEXTAUTH_URL="https://your-domain.com"
 ```
 
-5. Create an admin user:
-```bash
-npx tsx scripts/create-admin.ts
-```
+## 🔄 Future Enhancements
 
-6. Start the development server:
-```bash
-npm run dev
-```
+### Planned Features
+- **Automated Payouts**: Scheduled payment processing
+- **Leaderboards**: Top creators and campaigns
+- **Advanced Analytics**: Detailed performance insights
+- **Multi-payment Support**: Additional payment gateways
+- **Mobile App**: Native mobile application
+- **AI Content Review**: Automated content moderation
 
-## Usage
+### Integration Opportunities
+- **Paytm API**: Real-time payment processing
+- **Social Media APIs**: Direct content publishing
+- **Analytics Tools**: Advanced reporting
+- **Email Marketing**: Automated notifications
 
-### Admin Access
-- **Email**: admin@example.com
-- **Password**: admin123
+## 📞 Support
 
-### Creating a Seller Profile
+For technical support or questions:
+- **Email**: hello@youbairia.com
+- **Documentation**: Check the `/docs` folder
+- **Issues**: Create GitHub issues for bugs
 
-1. Register/Login to your account
-2. Navigate to `/sell`
-3. Fill in your shop information:
-   - Shop name (will generate unique URL)
-   - Category
-   - Description
-   - Contact email
-   - Website (optional)
-   - Social media links (optional)
-4. Submit the form
-5. Wait for admin approval
+## 📄 License
 
-### Adding Products
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-1. After your shop is approved, go to `/sell/product`
-2. Fill in product details:
-   - Title
-   - Description
-   - Category
-   - Price
-   - Upload product files
-   - Upload thumbnail (optional)
-3. Submit for admin review
+---
 
-### Accessing Your Shop
-
-Once approved, your shop will be accessible at:
-```
-http://localhost:3000/shop/your-shop-name
-```
-
-## Database Schema
-
-### Users
-- Basic user information with authentication
-- Role-based access (USER, ADMIN)
-
-### Sellers
-- Shop information and profile
-- Unique shop URLs
-- Status tracking (PENDING, APPROVED, REJECTED)
-
-### Products
-- Product details and pricing
-- File uploads (placeholder implementation)
-- Status tracking (PENDING, APPROVED, REJECTED)
-- Seller relationship
-
-## API Endpoints
-
-### Authentication
-- `POST /api/auth/signup` - User registration
-- `POST /api/auth/login` - User login
-
-### Sellers
-- `POST /api/seller` - Create seller profile
-- `GET /api/seller?userId=<id>` - Get seller by user ID
-- `GET /api/seller?shopUrl=<url>` - Get seller by shop URL
-
-### Products
-- `POST /api/products` - Create product (with file upload)
-- `GET /api/products` - List products with filters
-
-### Admin
-- `GET /api/admin/sellers` - List all sellers
-- `GET /api/admin/products` - List all products
-- `POST /api/admin/sellers/[id]/approve` - Approve seller
-- `POST /api/admin/sellers/[id]/reject` - Reject seller
-- `POST /api/admin/products/[id]/approve` - Approve product
-- `POST /api/admin/products/[id]/reject` - Reject product
-
-## File Upload
-
-Currently, file uploads are implemented with placeholder URLs. To implement actual file storage:
-
-1. Set up cloud storage (AWS S3, Cloudinary, etc.)
-2. Update the product creation API to handle file uploads
-3. Store actual file URLs in the database
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License. 
+**Built with ❤️ for the digital creator economy** 

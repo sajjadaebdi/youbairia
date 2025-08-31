@@ -1,3 +1,6 @@
+
+
+
 "use client"
 
 import { useState } from "react"
@@ -5,8 +8,9 @@ import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Check, Loader2, Smartphone } from "lucide-react"
+import { Check, Loader2, Smartphone, CreditCard } from "lucide-react"
 import { toast } from "@/components/ui/use-toast"
+import { getPaytmUpiId } from "@/lib/payment-config"
 
 interface UPIPaymentProps {
   amount: number
@@ -15,27 +19,14 @@ interface UPIPaymentProps {
 
 export function UPIPayment({ amount, onPaymentComplete }: UPIPaymentProps) {
   const [showPaymentModal, setShowPaymentModal] = useState(false)
-  const [upiId, setUpiId] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [paymentStatus, setPaymentStatus] = useState<"pending" | "success" | "failed">("pending")
   const [paymentId, setPaymentId] = useState("")
 
-  const validateUpiId = (upi: string) => {
-    // Basic UPI ID validation (name@provider format)
-    const upiRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z]{3,}$/
-    return upiRegex.test(upi)
-  }
+  // Get the merchant's Paytm UPI ID from configuration
+  const merchantUpiId = getPaytmUpiId()
 
   const initiatePayment = async () => {
-    if (!validateUpiId(upiId)) {
-      toast({
-        title: "Invalid UPI ID",
-        description: "Please enter a valid UPI ID (e.g., username@paytm)",
-        variant: "destructive",
-      })
-      return
-    }
-
     setIsLoading(true)
     
     try {
@@ -43,8 +34,8 @@ export function UPIPayment({ amount, onPaymentComplete }: UPIPaymentProps) {
       const uniquePaymentId = `PAY_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
       setPaymentId(uniquePaymentId)
 
-      // Create UPI payment URL with the user's UPI ID
-      const upiUrl = `upi://pay?pa=${upiId}&pn=Digital Marketplace&am=${amount}&cu=INR&tn=Payment for Digital Products&tr=${uniquePaymentId}`
+      // Create UPI payment URL with the merchant's UPI ID
+      const upiUrl = `upi://pay?pa=${merchantUpiId}&pn=Digital Marketplace&am=${amount}&cu=INR&tn=Payment for Digital Products&tr=${uniquePaymentId}`
 
       // Open UPI app with payment request
       window.open(upiUrl, "_blank")
@@ -52,7 +43,7 @@ export function UPIPayment({ amount, onPaymentComplete }: UPIPaymentProps) {
       // Simulate payment verification (in real implementation, you'd integrate with UPI APIs)
       toast({
         title: "Payment request sent!",
-        description: "Check your UPI app for payment approval.",
+        description: `Payment will be sent to ${merchantUpiId}`,
       })
 
       // For demo purposes, we'll simulate a payment verification after 5 seconds
@@ -91,7 +82,6 @@ export function UPIPayment({ amount, onPaymentComplete }: UPIPaymentProps) {
   }
 
   const resetPayment = () => {
-    setUpiId("")
     setPaymentStatus("pending")
     setPaymentId("")
     setIsLoading(false)
@@ -118,19 +108,17 @@ export function UPIPayment({ amount, onPaymentComplete }: UPIPaymentProps) {
 
             {paymentStatus === "pending" && (
               <>
-                {/* UPI ID Input */}
+                {/* Merchant UPI ID Display */}
                 <div className="space-y-2">
-                  <Label htmlFor="upi-id">Enter your UPI ID</Label>
-                  <Input
-                    id="upi-id"
-                    type="text"
-                    placeholder="username@paytm"
-                    value={upiId}
-                    onChange={(e) => setUpiId(e.target.value)}
-                    className="text-center text-lg"
-                  />
+                  <Label>Payment will be sent to:</Label>
+                  <div className="flex items-center gap-2 bg-green-50 dark:bg-green-950/20 rounded-lg p-3 border border-green-200 dark:border-green-800">
+                    <CreditCard className="h-4 w-4 text-green-600 dark:text-green-400" />
+                    <span className="font-mono text-sm font-medium text-green-700 dark:text-green-300">
+                      {merchantUpiId}
+                    </span>
+                  </div>
                   <p className="text-xs text-muted-foreground text-center">
-                    Example: username@paytm, username@okicici, username@ybl
+                    This is our official Paytm UPI ID for receiving payments
                   </p>
                 </div>
 
@@ -141,17 +129,17 @@ export function UPIPayment({ amount, onPaymentComplete }: UPIPaymentProps) {
                     <span className="font-medium">How it works:</span>
                   </div>
                   <ul className="text-sm text-blue-600 dark:text-blue-400 space-y-1">
-                    <li>• Enter your UPI ID above</li>
-                    <li>• Click "Send Payment Request"</li>
+                    <li>• Click "Send Payment Request" below</li>
                     <li>• You'll receive a notification in your UPI app</li>
                     <li>• Approve the payment in your UPI app</li>
+                    <li>• Payment will be sent to our Paytm UPI ID</li>
                   </ul>
                 </div>
 
                 {/* Action Button */}
                 <Button 
                   onClick={initiatePayment} 
-                  disabled={!upiId.trim() || isLoading}
+                  disabled={isLoading}
                   className="w-full"
                   size="lg"
                 >
