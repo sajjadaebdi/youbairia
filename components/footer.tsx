@@ -115,15 +115,15 @@ export function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="flex items-center space-x-2">
               <Mail className="h-4 w-4 text-muted-foreground" />
-              <span className="text-sm text-muted-foreground">hello@youbairia.com</span>
+              <span className="text-sm text-muted-foreground">info@youbairia.com</span>
             </div>
             <div className="flex items-center space-x-2">
               <Phone className="h-4 w-4 text-muted-foreground" />
-              <span className="text-sm text-muted-foreground">+1 (555) 123-4567</span>
+              <span className="text-sm text-muted-foreground">+919368598307</span>
             </div>
             <div className="flex items-center space-x-2">
               <MapPin className="h-4 w-4 text-muted-foreground" />
-              <span className="text-sm text-muted-foreground">123 Digital Street, Tech City, TC 12345</span>
+              <span className="text-sm text-muted-foreground">dehradun, india</span>
             </div>
           </div>
         </div>
