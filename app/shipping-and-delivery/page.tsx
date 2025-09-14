@@ -307,7 +307,7 @@ export default function ShippingAndDeliveryPage() {
                 <h3 className="font-semibold mb-2">Need Help?</h3>
                 <p className="text-muted-foreground">
                   If you're experiencing issues with digital delivery, contact our support team at 
-                  support@youbairia.com or call +1 (555) 123-4567 for immediate assistance.
+                  support@youbairia.com or call +919368598307 for immediate assistance.
                 </p>
               </div>
             </div>
@@ -321,12 +321,12 @@ export default function ShippingAndDeliveryPage() {
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <h3 className="font-semibold mb-2">Technical Support</h3>
-                <p className="text-muted-foreground">support@youbairia.com</p>
+                <p className="text-muted-foreground">info@youbairia.com</p>
                 <p className="text-sm text-muted-foreground">Available 24/7 for urgent issues</p>
               </div>
               <div>
                 <h3 className="font-semibold mb-2">General Inquiries</h3>
-                <p className="text-muted-foreground">hello@youbairia.com</p>
+                <p className="text-muted-foreground">info@youbairia.com</p>
                 <p className="text-sm text-muted-foreground">Response within 24 hours</p>
               </div>
             </div>

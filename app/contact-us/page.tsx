@@ -97,7 +97,7 @@ export default function ContactUsPage() {
               <CardContent className="space-y-4">
                 <div>
                   <p className="font-medium">Email</p>
-                  <p className="text-muted-foreground">hello@youbairia.com</p>
+                  <p className="text-muted-foreground">info@youbairia.com</p>
                 </div>
                 <div>
                   <p className="font-medium">Response Time</p>
@@ -117,11 +117,11 @@ export default function ContactUsPage() {
               <CardContent className="space-y-4">
                 <div>
                   <p className="font-medium">Email</p>
-                  <p className="text-muted-foreground">support@youbairia.com</p>
+                  <p className="text-muted-foreground">info@youbairia.com</p>
                 </div>
                 <div>
                   <p className="font-medium">Phone</p>
-                  <p className="text-muted-foreground">+1 (555) 123-4567</p>
+                  <p className="text-muted-foreground">+919368598307</p>
                 </div>
                 <div>
                   <p className="font-medium">Response Time</p>
@@ -141,11 +141,11 @@ export default function ContactUsPage() {
               <CardContent className="space-y-4">
                 <div>
                   <p className="font-medium">Email</p>
-                  <p className="text-muted-foreground">business@youbairia.com</p>
+                  <p className="text-muted-foreground">info@youbairia.com</p>
                 </div>
                 <div>
                   <p className="font-medium">Phone</p>
-                  <p className="text-muted-foreground">+1 (555) 987-6543</p>
+                  <p className="text-muted-foreground">+919368598307</p>
                 </div>
                 <div>
                   <p className="font-medium">Response Time</p>
@@ -166,16 +166,16 @@ export default function ContactUsPage() {
                 <div>
                   <p className="font-medium">Address</p>
                   <p className="text-muted-foreground">
-                    123 Digital Street<br />
-                    Tech City, TC 12345<br />
-                    United States
+                    Clement Town<br />
+                    Dehradun<br />
+                    India
                   </p>
                 </div>
                 <div>
                   <p className="font-medium">Business Hours</p>
                   <p className="text-muted-foreground">
-                    Monday - Friday: 9:00 AM - 6:00 PM EST<br />
-                    Saturday: 10:00 AM - 4:00 PM EST<br />
+                    Monday - Saturday<br />
+                    <br />
                     Sunday: Closed
                   </p>
                 </div>
