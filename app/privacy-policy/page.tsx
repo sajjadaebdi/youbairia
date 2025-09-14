@@ -193,9 +193,9 @@ export default function PrivacyPolicyPage() {
               If you have any questions about this Privacy Policy or our data practices, please contact us:
             </p>
             <div className="space-y-2 text-muted-foreground">
-              <p><strong>Email:</strong> privacy@youbairia.com</p>
-              <p><strong>Address:</strong> [Your Business Address]</p>
-              <p><strong>Phone:</strong> [Your Phone Number]</p>
+              <p><strong>Email:</strong> info@youbairia.com</p>
+              <p><strong>Address:</strong> Dehradun, India</p>
+              <p><strong>Phone:</strong> 9368598307</p>
             </div>
           </div>
         </div>

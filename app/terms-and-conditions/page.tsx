@@ -242,7 +242,7 @@ export default function TermsAndConditionsPage() {
               <div>
                 <h3 className="text-xl font-medium mb-2">Customer Support</h3>
                 <p className="text-muted-foreground">
-                  We encourage users to resolve disputes through our customer support team first. Contact us at support@youbairia.com.
+                  We encourage users to resolve disputes through our customer support team first. Contact us at info@youbairia.com
                 </p>
               </div>
               
@@ -258,7 +258,7 @@ export default function TermsAndConditionsPage() {
           <div className="bg-card rounded-lg p-6 mb-8">
             <h2 className="text-2xl font-semibold mb-4">Governing Law</h2>
             <p className="text-muted-foreground">
-              These terms are governed by the laws of [Your Jurisdiction]. Any legal proceedings shall be brought in the courts of [Your Jurisdiction].
+              These terms are governed by the laws of INDIA. Any legal proceedings shall be brought in the courts of Saharanpur, India.
             </p>
           </div>
 
@@ -278,9 +278,9 @@ export default function TermsAndConditionsPage() {
               If you have questions about these Terms and Conditions, please contact us:
             </p>
             <div className="space-y-2 text-muted-foreground">
-              <p><strong>Email:</strong> legal@youbairia.com</p>
-              <p><strong>Address:</strong> [Your Business Address]</p>
-              <p><strong>Phone:</strong> [Your Phone Number]</p>
+              <p><strong>Email:</strong> info@youbairia.com</p>
+              <p><strong>Address:</strong> Dehradun, India</p>
+              <p><strong>Phone:</strong> 9368598307</p>
             </div>
           </div>
         </div>

@@ -250,12 +250,12 @@ export default function CancellationAndRefundPage() {
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <h3 className="font-semibold mb-2">Email Support</h3>
-                <p className="text-muted-foreground">refunds@youbairia.com</p>
+                <p className="text-muted-foreground">info@youbairia.com</p>
                 <p className="text-sm text-muted-foreground">Response within 24-48 hours</p>
               </div>
               <div>
                 <h3 className="font-semibold mb-2">Phone Support</h3>
-                <p className="text-muted-foreground">+1 (555) 123-4567</p>
+                <p className="text-muted-foreground">+919368598307</p>
                 <p className="text-sm text-muted-foreground">Monday-Friday, 9 AM-6 PM EST</p>
               </div>
             </div>

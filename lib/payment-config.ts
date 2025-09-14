@@ -5,7 +5,7 @@ export const PAYMENT_CONFIG = {
   // Paytm UPI Configuration
   PAYTM_UPI: {
     UPI_ID: '9368598307@pthdfc', // Your Paytm UPI ID
-    MERCHANT_NAME: 'Digital Marketplace',
+    MERCHANT_NAME: 'Youbairia',
     CURRENCY: 'INR',
   },
   
