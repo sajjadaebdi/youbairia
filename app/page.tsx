@@ -94,9 +94,9 @@ export default function Home() {
           >
             <ProductCard
               id="5"
-              title="USDT/INR"
+              title="Content Reward Program"
               price={98.99}
-              image="/usdt.png"
+              image="/paid.png"
               category="Assets"
               seller="Youbairia"
             />
