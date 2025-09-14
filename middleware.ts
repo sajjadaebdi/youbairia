@@ -1,46 +1,43 @@
-import { withAuth } from "next-auth/middleware"
 import { NextResponse } from "next/server"
 
-// Temporarily disabled authentication for testing
-export default function middleware(req) {
-  const isAdminRoute = req.nextUrl.pathname.startsWith("/admin")
-
-  // Protect admin routes (temporarily allow all access)
-  // if (isAdminRoute && !isAdmin) {
-  //   return NextResponse.redirect(new URL("/", req.url))
-  // }
-
-  // Add security headers
+// 🔒 Middleware for global security headers
+export default function middleware(req: Request) {
   const response = NextResponse.next()
-  
-  // Security headers
+
+  // ✅ Security headers
   response.headers.set("X-Frame-Options", "DENY")
   response.headers.set("X-Content-Type-Options", "nosniff")
   response.headers.set("Referrer-Policy", "origin-when-cross-origin")
   response.headers.set("X-XSS-Protection", "1; mode=block")
-  
-  // Content Security Policy
+
+  // ✅ Updated Content Security Policy (allow Razorpay)
   response.headers.set(
     "Content-Security-Policy",
-    "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:; frame-ancestors 'none';"
+    [
+      "default-src 'self'",
+      // allow Razorpay scripts
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://checkout.razorpay.com",
+      // allow Razorpay iframes
+      "frame-src https://checkout.razorpay.com https://api.razorpay.com",
+      // allow API calls
+      "connect-src 'self' https://api.razorpay.com",
+      // allow images from self, data: URIs, and Razorpay
+      "img-src 'self' data: https://checkout.razorpay.com",
+      // allow inline styles for Razorpay’s checkout form
+      "style-src 'self' 'unsafe-inline'",
+      // allow fonts
+      "font-src 'self' data:",
+      // prevent your site from being embedded elsewhere
+      "frame-ancestors 'none'",
+    ].join("; ")
   )
 
   return response
 }
 
-// Temporarily disabled authentication matcher
-// export const config = {
-//   matcher: [
-//     "/admin/:path*",
-//     "/sell/:path*",
-//     "/profile/:path*",
-//     "/api/admin/:path*",
-//   ]
-// }
-
+// ✅ Match all routes except static assets & favicon
 export const config = {
   matcher: [
-    // Temporarily allow all routes without authentication
-    "/((?!api|_next/static|_next/image|favicon.ico).*)",
-  ]
-} 
+    "/((?!_next/static|_next/image|favicon.ico).*)",
+  ],
+}
